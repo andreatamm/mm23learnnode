@@ -9,8 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "boxen": "^8.0.1"
-  }
+  "description": ""
 }
