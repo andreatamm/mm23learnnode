@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
     entry: './src/index.js',
@@ -17,12 +18,44 @@ module.exports = {
     },
     module: {
         rules: [
-          {
-            test: /\.css$/i,
-            use: ["style-loader", "css-loader"],
-          },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(scss)$/,
+                use: [
+                  {
+                    // Adds CSS to the DOM by injecting a `<style>` tag
+                    loader: 'style-loader',
+                  },
+                  {
+                    loader: 'css-loader',
+                  },
+                  {
+                    // Loader for webpack to process CSS with PostCSS
+                    loader: 'postcss-loader',
+                    options: {
+                      postcssOptions: {
+                        plugins: [
+                          autoprefixer
+                        ]
+                      }
+                    }
+                  },
+                {
+                    // Loads a SASS/SCSS file and compiles it to CSS
+                    loader: 'sass-loader',
+                    options: {
+                        sassOptions: {
+                          quietDeps: true ,     
+                        }
+                    }
+                  }
+                ]
+              }
         ],
-      },
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
