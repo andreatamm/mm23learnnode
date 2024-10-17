@@ -69,5 +69,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.njk',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'patterns.html',
+      template: './src/patterns.njk',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'blog.html',
+      template: './src/blog.njk',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'contact.html',
+      template: './src/contact.njk',
+    }),
   ],
 };
