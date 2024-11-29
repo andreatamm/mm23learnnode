@@ -2,13 +2,11 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import { fileURLToPath } from 'url';
+import { VueLoaderPlugin }  from 'vue-loader' ;
+import webpack from 'webpack';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-let response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?format=json&limit=12');
-let body = await response.json();
-let articles = body.results;
 
 export default {
   entry: './src/index.js',
@@ -71,26 +69,21 @@ export default {
           },
         ],
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.njk',
+      template: './src/index.html',
     }),
-    new HtmlWebpackPlugin({
-      filename: 'patterns.html',
-      template: './src/patterns.njk',
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'blog.html',
-      template: './src/blog.njk',
-      templateParameters: {
-        articles: articles
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'contact.html',
-      template: './src/contact.njk',
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: 'true',
+      __VUE_PROD_DEVTOOLS__: 'false',
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
     }),
   ],
 };
