@@ -1,8 +1,10 @@
 <script setup>
-import Btn from './components/Btn.vue';
+import Tabs from './components/Tabs.vue';
+
 </script>
 <template>
-  <div class="container mt-2">
-    <Btn color="primary" light>Button is cool</Btn>
-  </div>
+<Tabs></Tabs>
+<Suspense>
+    <RouterView />
+</Suspense>
 </template>
